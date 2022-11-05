@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.for_noru_app">
+
+    <uses-permission android:name="adroid.permisson.READ_CONTACTS" />
+    <uses-permission android:name="adroid.permisson.WRITE_CONTACTS" />
+
    <application
         android:label="for_noru_app"
         android:name="${applicationName}"
