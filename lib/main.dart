@@ -1,3 +1,4 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:for_noru_app/dialog.dart';
 import 'package:for_noru_app/models/friend.model.dart';
@@ -30,6 +31,7 @@ class _FriendAppState extends State<FriendApp> {
   getPermission() async {
     var status = await Permission.contacts.status;
     if (status.isGranted) {
+      var contacts = await ContactsService.getContacts();
       print('허락됨');
     } else if (status.isDenied) {
       print('거절됨');
@@ -50,15 +52,19 @@ class _FriendAppState extends State<FriendApp> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    getPermission();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('friends'),
         actions: [
           IconButton(
-            onPressed: () {
-              getPermission();
-            },
+            onPressed: () => getPermission(),
             icon: Icon(Icons.contacts),
           )
         ],
