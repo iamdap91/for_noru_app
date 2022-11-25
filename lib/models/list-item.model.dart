@@ -7,12 +7,14 @@ class ListItem extends StatelessWidget {
     required String this.title,
     required List<String> this.tags,
     required List<String> this.categories,
+    required String this.distance,
   }) : super(key: key);
 
   final thumbnail;
   final title;
   final tags;
   final categories;
+  final distance;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +43,8 @@ class ListItem extends StatelessWidget {
                   Text(
                     title,
                     style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.0,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.0,
                     ),
                   ),
                   const Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
@@ -53,6 +55,11 @@ class ListItem extends StatelessWidget {
                   const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
                   Text(
                     tags.join(','),
+                    style: const TextStyle(fontSize: 10.0),
+                  ),
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
+                  Text(
+                    distance,
                     style: const TextStyle(fontSize: 10.0),
                   ),
                 ],
