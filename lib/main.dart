@@ -1,131 +1,79 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:for_noru_app/dialog.dart';
-import 'package:for_noru_app/models/friend.model.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:for_noru_app/utils/get-position.dart';
 
 void main() {
   runApp(
     MaterialApp(
-      home: FriendApp(),
+      home: NoruApp(),
     ),
   );
 }
 
-class FriendApp extends StatefulWidget {
-  const FriendApp({Key? key}) : super(key: key);
+class NoruApp extends StatefulWidget {
+  const NoruApp({Key? key}) : super(key: key);
 
   @override
-  State<FriendApp> createState() => _FriendAppState();
+  State<NoruApp> createState() => _NoruAppState();
 }
 
-class _FriendAppState extends State<FriendApp> {
-  final List<Friend> friends = [
-    Friend(name: 'noru 1', like: 0),
-    Friend(name: 'noru 2', like: 0),
-    Friend(name: 'noru 3', like: 0),
-    Friend(name: 'noru 4', like: 0),
-    Friend(name: 'noru 5', like: 0),
+class _NoruAppState extends State<NoruApp> {
+  List<Map<String, List<String>>> items = [
+    {
+      'images': [
+        'https://ldb-phinf.pstatic.net/20210427_49/1619501570900CAtdy_JPEG/SoZtwIlyvA-zmwrVXqs6wSXK.jpeg.jpg'
+      ],
+    },
+    {
+      'images': [
+        'https://ldb-phinf.pstatic.net/20210427_49/1619501570900CAtdy_JPEG/SoZtwIlyvA-zmwrVXqs6wSXK.jpeg.jpg'
+      ],
+    },
   ];
 
-  getPermission() async {
-    var status = await Permission.contacts.status;
-    if (status.isGranted) {
-      var contacts = await ContactsService.getContacts();
-      print('허락됨');
-    } else if (status.isDenied) {
-      print('거절됨');
-      Permission.contacts.request();
-    }
-  }
-
-  addFriend(String name) {
-    setState(() {
-      friends.add(new Friend(name: name, like: 0));
-    });
-  }
-
-  editFriend(int index, String name) {
-    setState(() {
-      friends[index].name = name;
-    });
+  figurePosition() async {
+    var position = await getPosition();
+    print(position);
+    return position;
   }
 
   @override
   void initState() {
     super.initState();
-    getPermission();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('friends'),
-        actions: [
-          IconButton(
-            onPressed: () => getPermission(),
-            icon: Icon(Icons.contacts),
-          )
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Text(friends.length.toString()),
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) => DialogUI(
-              friends: friends,
-              addFriend: addFriend,
-              editFriend: editFriend,
-            ),
-          );
-        },
-      ),
-      body: ListView.separated(
-          itemCount: friends.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: false,
+          title: Text(
+            '반려동물 동반 가능 장소',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: Container(
+          child: ListView.separated(
+            padding: EdgeInsets.all(12.0),
+            itemBuilder: (BuildContext context, int index) => InkWell(
+              onTap: () {},
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset('assets/noru.jpeg', width: 100),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(friends[index].name),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () => {
-                        showDialog(
-                          context: context,
-                          builder: (context) => DialogUI(
-                            friends: friends,
-                            addFriend: addFriend,
-                            editFriend: editFriend,
-                            index: index,
-                          ),
-                        )
-                      },
-                    ),
-                  ),
+                  Image.network(items[index].images[0]),
+                  Text('좋아요 100',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('글쓴이'),
+                  Text('글내용'),
                 ],
               ),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) =>
-              Divider(height: 10.0, color: Colors.blue)),
-      bottomNavigationBar: BottomNavigationBar(items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
-        BottomNavigationBarItem(icon: Icon(Icons.icecream), label: 'dummy'),
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'settings'),
-      ]),
-    );
+            ),
+            separatorBuilder: (BuildContext context, int index) =>
+                Divider(height: 30.0, color: Colors.grey),
+            itemCount: items.length,
+          ),
+        ));
   }
 }

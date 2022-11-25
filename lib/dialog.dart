@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'models/friend.model.dart';
+import 'models/item.model.dart';
 
 class DialogUI extends StatelessWidget {
   DialogUI({
