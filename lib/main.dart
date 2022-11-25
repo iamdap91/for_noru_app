@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:for_noru_app/models/list-item.model.dart';
 import 'package:for_noru_app/utils/get-position.dart';
 
 void main() {
@@ -17,13 +19,19 @@ class NoruApp extends StatefulWidget {
 }
 
 class _NoruAppState extends State<NoruApp> {
-  List<Map<String, List<String>>> items = [
+  List<Map<String, dynamic>> items = [
     {
+      'title': '카페1',
+      'categories': ['카페', '애견동반'],
+      'tags': ['소형견', '중형견'],
       'images': [
         'https://ldb-phinf.pstatic.net/20210427_49/1619501570900CAtdy_JPEG/SoZtwIlyvA-zmwrVXqs6wSXK.jpeg.jpg'
       ],
     },
     {
+      'title': '강아지 데려와',
+      'categories': ['일반음식점', '애견동반'],
+      'tags': ['소형견', '중형견', '대형견', '칸분리'],
       'images': [
         'https://ldb-phinf.pstatic.net/20210427_49/1619501570900CAtdy_JPEG/SoZtwIlyvA-zmwrVXqs6wSXK.jpeg.jpg'
       ],
@@ -48,28 +56,30 @@ class _NoruAppState extends State<NoruApp> {
           backgroundColor: Colors.white,
           elevation: 0,
           centerTitle: false,
-          title: Text(
-            '반려동물 동반 가능 장소',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          title: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Text(
+              'HOME',
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
           ),
         ),
         body: Container(
           child: ListView.separated(
             padding: EdgeInsets.all(12.0),
-            itemBuilder: (BuildContext context, int index) => InkWell(
-              onTap: () {},
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.network(items[index].images[0]),
-                  Text('좋아요 100',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text('글쓴이'),
-                  Text('글내용'),
-                ],
-              ),
-            ),
+            itemBuilder: (BuildContext context, int index) {
+              return Card(
+                child: InkWell(
+                    onTap: () {},
+                    child: ListItem(
+                      title: items[index]['title'],
+                      categories: items[index]['categories'],
+                      tags: items[index]['tags'],
+                      thumbnail: items[index]['images']![0],
+                    )),
+              );
+            },
             separatorBuilder: (BuildContext context, int index) =>
                 Divider(height: 30.0, color: Colors.grey),
             itemCount: items.length,
