@@ -27,8 +27,6 @@ class ListItem extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: Container(
                 height: 100,
-                // decoration: const BoxDecoration(
-                //     color: Colors.blue, shape: BoxShape.rectangle),
                 child: Image.network(thumbnail),
               ),
             ),
@@ -47,12 +45,12 @@ class ListItem extends StatelessWidget {
                       fontSize: 14.0,
                     ),
                   ),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
                   Text(
                     categories.join(','),
                     style: const TextStyle(fontSize: 10.0),
                   ),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 1.0)),
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
                   Text(
                     tags.join(','),
                     style: const TextStyle(fontSize: 10.0),
