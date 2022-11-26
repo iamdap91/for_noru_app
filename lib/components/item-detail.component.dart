@@ -36,6 +36,10 @@ class _ItemDetailState extends State<ItemDetail> {
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: false,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
+        ),
         title: Text(
           item['title'],
           style: TextStyle(
