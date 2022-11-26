@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:for_noru_app/components/percentage-indicator.component.dart';
 
 import 'gallery.component.dart';
 
@@ -48,6 +49,14 @@ class _ItemDetailState extends State<ItemDetail> {
           ),
         ),
       ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: [
+      //     BottomNavigationBarItem(icon: Icon(Icons.map_outlined), label: 'map'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.phone), label: 'phone'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.edit_outlined), label: 'review'),
+      //   ],
+      // ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -85,6 +94,13 @@ class _ItemDetailState extends State<ItemDetail> {
               ),
               carouselController: CarouselController(),
             ),
+            Divider(height: 20),
+            Container(height: 70, color: Colors.blue),
+            Divider(height: 20),
+            PercentageIndicator(text: '소형견 입장이 가능해요', percentage: 0.9),
+            PercentageIndicator(text: '중형견 입장이 가능해요', percentage: 0.5),
+            PercentageIndicator(text: '대형견 입장이 가능해요', percentage: 0.0),
+            PercentageIndicator(text: '칸이 나뉘어 있어요', percentage: 0.3),
           ],
         ),
       ),
