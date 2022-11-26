@@ -50,7 +50,8 @@ class _ItemDetailState extends State<ItemDetail> {
           children: [
             CarouselSlider.builder(
               itemCount: item['images'].length,
-              itemBuilder: (context, itemIndex, pageViewIndex) {
+              itemBuilder:
+                  (BuildContext context, int itemIndex, int pageViewIndex) {
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -58,6 +59,7 @@ class _ItemDetailState extends State<ItemDetail> {
                       MaterialPageRoute(builder: (context) {
                         return Gallery(
                           images: item['images'],
+                          initialPage: pageViewIndex,
                         );
                       }),
                     );

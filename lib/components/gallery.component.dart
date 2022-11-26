@@ -6,8 +6,11 @@ class Gallery extends StatefulWidget {
   Gallery({
     Key? key,
     required List<String> this.images,
+    required int this.initialPage,
   }) : super(key: key);
+
   List<String> images;
+  int initialPage;
 
   @override
   State<Gallery> createState() => _GalleryState();
@@ -18,6 +21,7 @@ class _GalleryState extends State<Gallery> {
   Widget build(BuildContext context) {
     return Container(
         child: PhotoViewGallery.builder(
+      pageController: PageController(initialPage: widget.initialPage),
       scrollPhysics: const BouncingScrollPhysics(),
       builder: (BuildContext context, int index) {
         return PhotoViewGalleryPageOptions(
