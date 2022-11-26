@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:for_noru_app/models/list-item.model.dart';
+import 'package:for_noru_app/components/item-detail.component.dart';
 import 'package:for_noru_app/utils/get-position.dart';
+
+import 'components/list-item.component.dart';
 
 void main() {
   runApp(
@@ -67,13 +68,9 @@ class _NoruAppState extends State<NoruApp> {
           backgroundColor: Colors.white,
           elevation: 0,
           centerTitle: false,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Text(
-              'HOME',
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
+          title: Text(
+            'HOME',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
         body: Container(
@@ -82,7 +79,14 @@ class _NoruAppState extends State<NoruApp> {
             itemBuilder: (BuildContext context, int index) {
               return Card(
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => ItemDetail(),
+                      ),
+                    );
+                  },
                   child: ListItem(
                     title: items[index]['title'],
                     categories: items[index]['categories'],
