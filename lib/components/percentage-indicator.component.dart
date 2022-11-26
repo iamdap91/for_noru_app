@@ -19,6 +19,7 @@ class PercentageIndicator extends StatelessWidget {
         animation: true,
         lineHeight: 40.0,
         animationDuration: 500,
+        backgroundColor: Colors.white,
         percent: percentage,
         center: Text(text),
         trailing: Row(
@@ -36,8 +37,10 @@ class PercentageIndicator extends StatelessWidget {
           ],
         ),
         barRadius: Radius.circular(100),
-        progressColor: Colors.deepOrangeAccent,
+        progressColor: percentage > 0.5 ? Colors.orange : Colors.grey,
       ),
     );
   }
 }
+
+// 2962FF
