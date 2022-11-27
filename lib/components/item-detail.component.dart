@@ -20,6 +20,7 @@ class _ItemDetailState extends State<ItemDetail> {
     'url':
         'https://map.naver.com/v5/search/%EC%9D%8C%EC%8B%9D%EC%A0%90/place/35125303?c=14129222.8221826,4506736.1963078,15.95,0,0,0,dh&placePath=%3Fentry%253Dbmp',
     'title': '애견동반 카페 - AAA',
+    'phone': '010-4780-2291',
     'description': '여기는 이런이런게 돼요. \n이건 안되구 저건 되여',
     'categories': ['카페', '애견동반'],
     'tags': ['소형견', '중형견'],
@@ -98,6 +99,26 @@ class _ItemDetailState extends State<ItemDetail> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
+                  onPressed: () {
+                    launchUrl(Uri.parse('tel://${item['phone']}'));
+                  },
+                  child: Row(children: [
+                    Icon(Icons.phone, color: Colors.black),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('전화', style: TextStyle(color: Colors.black)),
+                    )
+                  ]),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: Colors.white,
+                  ),
+                ),
+                VerticalDivider(
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                ElevatedButton(
                   onPressed: () async {
                     if (!await launchUrl(Uri.parse(item['url']))) {
                       throw 'Could not launch $item.url';
@@ -116,29 +137,8 @@ class _ItemDetailState extends State<ItemDetail> {
                   ),
                 ),
                 VerticalDivider(
-                  width: 20,
-                  thickness: 1,
-                  indent: 20,
-                  endIndent: 0,
                   color: Colors.grey,
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Row(children: [
-                    Icon(Icons.phone, color: Colors.black),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('전화', style: TextStyle(color: Colors.black)),
-                    )
-                  ]),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    backgroundColor: Colors.white,
-                  ),
-                ),
-                VerticalDivider(
-                  color: Colors.black,
-                  thickness: 10,
+                  thickness: 1,
                 ),
                 ElevatedButton(
                   onPressed: () async {
