@@ -101,6 +101,11 @@ class _ItemDetailState extends State<ItemDetail> {
             Divider(height: 20),
             Container(
               child: Row(
+                children: [],
+              ),
+            ),
+            Container(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
@@ -135,8 +140,12 @@ class _ItemDetailState extends State<ItemDetail> {
               onTap: () async {
                 await Clipboard.setData(ClipboardData(text: item['address']))
                     .then((_) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text('주소가 복사되었어요!')));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('주소가 복사되었어요!'),
+                      duration: Duration(milliseconds: 500),
+                    ),
+                  );
                 });
               },
               child: Container(
@@ -146,9 +155,11 @@ class _ItemDetailState extends State<ItemDetail> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.copy),
-                    Text(item['address'],
-                        style: TextStyle(
-                            fontSize: 10, fontWeight: FontWeight.w600)),
+                    Text(
+                      item['address'],
+                      style:
+                          TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                    ),
                   ],
                 ),
               )),
