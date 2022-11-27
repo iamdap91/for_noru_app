@@ -4,11 +4,7 @@ import 'package:for_noru_app/utils/get-position.dart';
 
 import 'components/list-item.component.dart';
 
-const List<Widget> fruits = <Widget>[
-  Text('전체'),
-  Text('카페'),
-  Text('음식점'),
-];
+List<String> fruits = ['전체', '카페', '음식점'];
 final List<bool> _selectedFruits = <bool>[true, false, false];
 
 void main() {
@@ -89,12 +85,18 @@ class _NoruAppState extends State<NoruApp> {
                 renderBorder: false,
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 direction: Axis.horizontal,
-                onPressed: (int index) {},
+                onPressed: (int index) {
+                  setState(() {
+                    for (int i = 0; i < _selectedFruits.length; i++) {
+                      _selectedFruits[i] = i == index;
+                    }
+                  });
+                },
                 constraints: BoxConstraints(minHeight: 40.0, minWidth: 80.0),
                 isSelected: _selectedFruits,
                 children: fruits.map((item) {
                   return Container(
-                    child: item,
+                    child: Text(item),
                     padding: EdgeInsets.all(5),
                     alignment: Alignment.center,
                   );
