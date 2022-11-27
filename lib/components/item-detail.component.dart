@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:for_noru_app/components/percentage-indicator.component.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'gallery.component.dart';
 
@@ -16,6 +17,8 @@ class ItemDetail extends StatefulWidget {
 
 class _ItemDetailState extends State<ItemDetail> {
   Map<String, dynamic> item = {
+    'url':
+        'https://map.naver.com/v5/search/%EC%9D%8C%EC%8B%9D%EC%A0%90/place/35125303?c=14129222.8221826,4506736.1963078,15.95,0,0,0,dh&placePath=%3Fentry%253Dbmp',
     'title': '애견동반 카페 - AAA',
     'description': '여기는 이런이런게 돼요. \n이건 안되구 저건 되여',
     'categories': ['카페', '애견동반'],
@@ -95,7 +98,11 @@ class _ItemDetailState extends State<ItemDetail> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (!await launchUrl(Uri.parse(item['url']))) {
+                      throw 'Could not launch $item.url';
+                    }
+                  },
                   child: Row(children: [
                     Icon(Icons.map, color: Colors.black),
                     Padding(
@@ -109,8 +116,11 @@ class _ItemDetailState extends State<ItemDetail> {
                   ),
                 ),
                 VerticalDivider(
-                  color: Colors.black,
-                  thickness: 10,
+                  width: 20,
+                  thickness: 1,
+                  indent: 20,
+                  endIndent: 0,
+                  color: Colors.grey,
                 ),
                 ElevatedButton(
                   onPressed: () {},
