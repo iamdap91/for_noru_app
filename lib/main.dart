@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:for_noru_app/components/content-list.component.dart';
 import 'package:for_noru_app/components/filter-bar.component.dart';
+import 'package:for_noru_app/components/guide.component.dart';
 import 'package:for_noru_app/utils/get-position.dart';
 
 void main() {
@@ -41,6 +42,21 @@ class _NoruAppState extends State<NoruApp> {
           'HOME',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return Guide();
+                  }),
+                );
+              },
+              icon: Icon(
+                Icons.menu_book,
+                color: Colors.black,
+              ))
+        ],
       ),
       body: Column(
         children: [
