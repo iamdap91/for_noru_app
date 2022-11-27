@@ -4,6 +4,13 @@ import 'package:for_noru_app/utils/get-position.dart';
 
 import 'components/list-item.component.dart';
 
+const List<Widget> fruits = <Widget>[
+  Text('전체'),
+  Text('카페'),
+  Text('음식점'),
+];
+final List<bool> _selectedFruits = <bool>[true, false, false];
+
 void main() {
   runApp(
     MaterialApp(
@@ -59,6 +66,7 @@ class _NoruAppState extends State<NoruApp> {
   @override
   void initState() {
     super.initState();
+    // figurePosition();
   }
 
   @override
@@ -73,34 +81,59 @@ class _NoruAppState extends State<NoruApp> {
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
-        body: Container(
-          child: ListView.separated(
-            padding: EdgeInsets.all(12.0),
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => ItemDetail(),
+        body: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child: ToggleButtons(
+                renderBorder: false,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                direction: Axis.horizontal,
+                onPressed: (int index) {},
+                constraints: BoxConstraints(minHeight: 40.0, minWidth: 80.0),
+                isSelected: _selectedFruits,
+                children: fruits.map((item) {
+                  return Container(
+                    child: item,
+                    padding: EdgeInsets.all(5),
+                    alignment: Alignment.center,
+                  );
+                }).toList(),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                child: ListView.separated(
+                  padding: EdgeInsets.all(12.0),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => ItemDetail(),
+                            ),
+                          );
+                        },
+                        child: ListItem(
+                          title: items[index]['title'],
+                          categories: items[index]['categories'],
+                          tags: items[index]['tags'],
+                          thumbnail: items[index]['images']![0],
+                          distance: items[index]['distance'],
+                        ),
                       ),
                     );
                   },
-                  child: ListItem(
-                    title: items[index]['title'],
-                    categories: items[index]['categories'],
-                    tags: items[index]['tags'],
-                    thumbnail: items[index]['images']![0],
-                    distance: items[index]['distance'],
-                  ),
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider(height: 30.0, color: Colors.grey);
+                  },
+                  itemCount: items.length,
                 ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                Divider(height: 30.0, color: Colors.grey),
-            itemCount: items.length,
-          ),
+              ),
+            ),
+          ],
         ));
   }
 }
