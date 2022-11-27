@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../utils/get-position.dart';
 
-List<String> fruits = ['전체', '카페', '음식점'];
-final List<bool> _selectedFruits = <bool>[true, false, false];
+List<String> categories = ['전체', '카페', '음식점'];
+final List<bool> selectedCategories = <bool>[true, false, false];
 
 class FilterBar extends StatefulWidget {
   const FilterBar({Key? key}) : super(key: key);
@@ -34,14 +34,14 @@ class _FilterBarState extends State<FilterBar> {
         direction: Axis.horizontal,
         onPressed: (int index) {
           setState(() {
-            for (int i = 0; i < _selectedFruits.length; i++) {
-              _selectedFruits[i] = i == index;
+            for (int i = 0; i < selectedCategories.length; i++) {
+              selectedCategories[i] = i == index;
             }
           });
         },
         constraints: BoxConstraints(minHeight: 40.0, minWidth: 80.0),
-        isSelected: _selectedFruits,
-        children: fruits.map((item) {
+        isSelected: selectedCategories,
+        children: categories.map((item) {
           return Container(
             child: Text(item),
             padding: EdgeInsets.all(5),
