@@ -53,14 +53,6 @@ class _ItemDetailState extends State<ItemDetail> {
           ),
         ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: [
-      //     BottomNavigationBarItem(icon: Icon(Icons.map_outlined), label: 'map'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.phone), label: 'phone'),
-      //     BottomNavigationBarItem(
-      //         icon: Icon(Icons.edit_outlined), label: 'review'),
-      //   ],
-      // ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -99,70 +91,72 @@ class _ItemDetailState extends State<ItemDetail> {
               carouselController: CarouselController(),
             ),
             Divider(height: 20),
-            Container(
-              child: Row(
-                children: [],
-              ),
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Row(children: [
-                      Icon(Icons.map),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('지도'),
-                      )
-                    ]),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: backgroundButtonColor,
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Row(children: [
+                    Icon(Icons.map, color: Colors.black),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('지도', style: TextStyle(color: Colors.black)),
+                    )
+                  ]),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: Colors.white,
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Row(children: [
-                      Icon(Icons.phone),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('010-4780-2291'),
-                      )
-                    ]),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: backgroundButtonColor),
-                  ),
-                ],
-              ),
-            ),
-            GestureDetector(
-              onTap: () async {
-                await Clipboard.setData(ClipboardData(text: item['address']))
-                    .then((_) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('주소가 복사되었어요!'),
-                      duration: Duration(milliseconds: 500),
-                    ),
-                  );
-                });
-              },
-              child: Container(
-                  child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.copy),
-                    Text(
-                      item['address'],
-                      style:
-                          TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
-                    ),
-                  ],
                 ),
-              )),
+                VerticalDivider(
+                  color: Colors.black,
+                  thickness: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Row(children: [
+                    Icon(Icons.phone, color: Colors.black),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('전화', style: TextStyle(color: Colors.black)),
+                    )
+                  ]),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: Colors.white,
+                  ),
+                ),
+                VerticalDivider(
+                  color: Colors.black,
+                  thickness: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    await Clipboard.setData(
+                            ClipboardData(text: item['address']))
+                        .then((_) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('주소가 복사되었어요!'),
+                          duration: Duration(milliseconds: 500),
+                        ),
+                      );
+                    });
+                  },
+                  child: Row(children: [
+                    Icon(Icons.copy, color: Colors.black),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child:
+                          Text('주소 복사', style: TextStyle(color: Colors.black)),
+                    )
+                  ]),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: Colors.white,
+                  ),
+                ),
+              ],
             ),
             Divider(height: 20),
             PercentageIndicator(text: '소형견 입장이 가능해요', percentage: 0.87),
