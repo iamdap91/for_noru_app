@@ -8,14 +8,14 @@ import 'gallery.component.dart';
 
 const backgroundButtonColor = Color.fromRGBO(0, 0, 0, 0.6);
 
-class ItemDetail extends StatefulWidget {
-  ItemDetail({Key? key}) : super(key: key);
+class ContentDetail extends StatefulWidget {
+  ContentDetail({Key? key}) : super(key: key);
 
   @override
-  State<ItemDetail> createState() => _ItemDetailState();
+  State<ContentDetail> createState() => _ContentDetailState();
 }
 
-class _ItemDetailState extends State<ItemDetail> {
+class _ContentDetailState extends State<ContentDetail> {
   Map<String, dynamic> item = {
     'url':
         'https://map.naver.com/v5/search/%EC%9D%8C%EC%8B%9D%EC%A0%90/place/35125303?c=14129222.8221826,4506736.1963078,15.95,0,0,0,dh&placePath=%3Fentry%253Dbmp',
