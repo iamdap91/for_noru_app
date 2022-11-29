@@ -5,8 +5,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 
 class ListViewStore extends ChangeNotifier {
-  final List<String> categories = ['카페', '음식점'];
-  final List<bool> categorySelections = [true, false];
+  final List<String> categories = ['카페', '음식점', '미용실'];
+  final List<bool> categorySelections = [true, false, false];
 
   List<dynamic> listItems = [];
 

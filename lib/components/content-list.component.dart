@@ -40,6 +40,7 @@ class _ContentListState extends State<ContentList> {
         child: ListView.separated(
           padding: EdgeInsets.all(12.0),
           itemBuilder: (BuildContext context, int index) {
+            // todo 값이 0 일 경우 처리 추가 필요
             var item = context.watch<ListViewStore>().listItems[index];
 
             return Card(

@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:for_noru_app/stores/list-view-store.dart';
 import 'package:provider/provider.dart';
 
-List<String> categories = ['전체', '카페', '음식점'];
-final List<bool> selectedCategories = <bool>[true, false, false];
-
 class FilterBar extends StatefulWidget {
   const FilterBar({Key? key}) : super(key: key);
 
