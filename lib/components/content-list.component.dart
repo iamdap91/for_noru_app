@@ -37,37 +37,48 @@ class _ContentListState extends State<ContentList> {
         controller: _refreshController,
         enablePullDown: true,
         onRefresh: _onRefresh,
-        child: ListView.separated(
-          padding: EdgeInsets.all(12.0),
-          itemBuilder: (BuildContext context, int index) {
-            // todo 값이 0 일 경우 처리 추가 필요
-            var item = context.watch<ListViewStore>().listItems[index];
+        child: context.watch<ListViewStore>().listItems.length == 0
+            ? Container(
+                child: Center(
+                  child: Text(
+                    '반경 30km 안에 반려동물 동반이 가능한 장소가 없어요 🥲',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+              )
+            : ListView.separated(
+                padding: EdgeInsets.all(12.0),
+                itemBuilder: (BuildContext context, int index) {
+                  if (context.watch<ListViewStore>().listItems.length == 0) {
+                    return SizedBox();
+                  }
+                  var item = context.watch<ListViewStore>().listItems[index];
 
-            return Card(
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => ContentDetail(),
+                  return Card(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => ContentDetail(),
+                          ),
+                        );
+                      },
+                      child: ListItem(
+                        name: item['name'],
+                        categories: item['categories']?.cast<String>(),
+                        tags: item['tags']?.cast<String>(),
+                        thumbnail: item['images'][0],
+                        distance: item['distance'],
+                      ),
                     ),
                   );
                 },
-                child: ListItem(
-                  name: item['name'],
-                  categories: item['categories']?.cast<String>(),
-                  tags: item['tags']?.cast<String>(),
-                  thumbnail: item['images'][0],
-                  distance: item['distance'],
-                ),
+                separatorBuilder: (BuildContext context, int index) {
+                  return Divider(height: 30.0, color: Colors.grey);
+                },
+                itemCount: context.watch<ListViewStore>().listItems.length,
               ),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return Divider(height: 30.0, color: Colors.grey);
-          },
-          itemCount: context.watch<ListViewStore>().listItems.length,
-        ),
       ),
     );
   }
