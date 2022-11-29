@@ -13,8 +13,8 @@ class ListViewStore extends ChangeNotifier {
 
   void selectCategory(int index) {
     for (int i = 0; i < categories.length; i++) {
+      categorySelections[i] = i == index;
       if (i == index) {
-        categorySelections[i] = i == index;
         currentIndex = index;
       }
     }
