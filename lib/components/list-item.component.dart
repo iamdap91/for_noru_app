@@ -4,14 +4,14 @@ class ListItem extends StatelessWidget {
   const ListItem({
     Key? key,
     required String this.thumbnail,
-    required String this.title,
-    required List<String> this.tags,
+    required String this.name,
+    List<String>? this.tags,
     required List<String> this.categories,
     required String this.distance,
   }) : super(key: key);
 
   final thumbnail;
-  final title;
+  final name;
   final tags;
   final categories;
   final distance;
@@ -29,7 +29,9 @@ class ListItem extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: Container(
                 height: 100,
-                child: Image.network(thumbnail),
+                child: thumbnail.length > 0
+                    ? Image.network(thumbnail)
+                    : Image.asset('assets/eraser.png'),
               ),
             ),
           ),
@@ -41,7 +43,7 @@ class ListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    title,
+                    name,
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16.0,
