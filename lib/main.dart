@@ -5,12 +5,12 @@ import 'package:for_noru_app/components/guide.component.dart';
 import 'package:for_noru_app/utils/get-position.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-var openTutorial = (context) => Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) {
-        return Guide();
-      }),
-    );
+Future<dynamic> Function(BuildContext) openTutorial = (BuildContext context) {
+  return Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => Guide()),
+  );
+};
 
 void main() {
   runApp(
@@ -30,15 +30,10 @@ class NoruApp extends StatefulWidget {
 class _NoruAppState extends State<NoruApp> {
   figureTutorial() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
+    // storage.remove('seenTutorial');
     bool? seen = storage.getBool('seenTutorial');
-    print(seen);
     if (seen == null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) {
-          return Guide();
-        }),
-      );
+      openTutorial(context);
     }
   }
 
@@ -67,15 +62,9 @@ class _NoruAppState extends State<NoruApp> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return Guide();
-                  }),
-                );
-              },
-              icon: Icon(Icons.menu_book, color: Colors.black))
+            onPressed: () => openTutorial(context),
+            icon: Icon(Icons.menu_book, color: Colors.black),
+          )
         ],
       ),
       body: Column(
