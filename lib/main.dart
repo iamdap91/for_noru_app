@@ -3,6 +3,14 @@ import 'package:for_noru_app/components/content-list.component.dart';
 import 'package:for_noru_app/components/filter-bar.component.dart';
 import 'package:for_noru_app/components/guide.component.dart';
 import 'package:for_noru_app/utils/get-position.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+var openTutorial = (context) => Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return Guide();
+      }),
+    );
 
 void main() {
   runApp(
@@ -20,6 +28,20 @@ class NoruApp extends StatefulWidget {
 }
 
 class _NoruAppState extends State<NoruApp> {
+  figureTutorial() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    bool? seen = storage.getBool('seenTutorial');
+    print(seen);
+    if (seen == null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return Guide();
+        }),
+      );
+    }
+  }
+
   figurePosition() async {
     var position = await getPosition();
     print(position);
@@ -29,6 +51,7 @@ class _NoruAppState extends State<NoruApp> {
   @override
   void initState() {
     super.initState();
+    figureTutorial();
   }
 
   @override
@@ -52,10 +75,7 @@ class _NoruAppState extends State<NoruApp> {
                   }),
                 );
               },
-              icon: Icon(
-                Icons.menu_book,
-                color: Colors.black,
-              ))
+              icon: Icon(Icons.menu_book, color: Colors.black))
         ],
       ),
       body: Column(

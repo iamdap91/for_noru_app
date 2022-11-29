@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Guide extends StatefulWidget {
   const Guide({Key? key}) : super(key: key);
@@ -41,7 +42,10 @@ class GuideState extends State<Guide> {
     );
   }
 
-  void onDonePress() {
+  Future<void> onDonePress() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    storage.setBool('seenTutorial', true);
+
     Navigator.of(context).pop();
   }
 
