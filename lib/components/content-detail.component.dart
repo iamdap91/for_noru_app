@@ -9,34 +9,36 @@ import 'gallery.component.dart';
 const backgroundButtonColor = Color.fromRGBO(0, 0, 0, 0.6);
 
 class ContentDetail extends StatefulWidget {
-  ContentDetail({Key? key}) : super(key: key);
+  final Map<String, dynamic> placeInfo;
+
+  ContentDetail({Key? key, required this.placeInfo}) : super(key: key);
 
   @override
   State<ContentDetail> createState() => _ContentDetailState();
 }
 
 class _ContentDetailState extends State<ContentDetail> {
-  Map<String, dynamic> item = {
-    'url':
-        'https://map.naver.com/v5/search/%EC%9D%8C%EC%8B%9D%EC%A0%90/place/35125303?c=14129222.8221826,4506736.1963078,15.95,0,0,0,dh&placePath=%3Fentry%253Dbmp',
-    'title': '애견동반 카페 - AAA',
-    'phone': '010-4780-2291',
-    'description': '여기는 이런이런게 돼요. \n이건 안되구 저건 되여',
-    'categories': ['카페', '애견동반'],
-    'tags': ['소형견', '중형견'],
-    'address': '서울특별시 김김김구 나나나동 999-123, 111호',
-    'images': [
-      'https://ldb-phinf.pstatic.net/20210427_49/1619501570900CAtdy_JPEG/SoZtwIlyvA-zmwrVXqs6wSXK.jpeg.jpg',
-      'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-      'https://ldb-phinf.pstatic.net/20210427_49/1619501570900CAtdy_JPEG/SoZtwIlyvA-zmwrVXqs6wSXK.jpeg.jpg',
-      'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-      'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-      'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-      'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80',
-      'https://ldb-phinf.pstatic.net/20210427_49/1619501570900CAtdy_JPEG/SoZtwIlyvA-zmwrVXqs6wSXK.jpeg.jpg',
-    ],
-    'distance': '2.5km',
-  };
+  // Map<String, dynamic> placeInfo = {
+  //   'url':
+  //       'https://map.naver.com/v5/search/%EC%9D%8C%EC%8B%9D%EC%A0%90/place/35125303?c=14129222.8221826,4506736.1963078,15.95,0,0,0,dh&placePath=%3Fentry%253Dbmp',
+  //   'title': '애견동반 카페 - AAA',
+  //   'phone': '010-4780-2291',
+  //   'description': '여기는 이런이런게 돼요. \n이건 안되구 저건 되여',
+  //   'categories': ['카페', '애견동반'],
+  //   'tags': ['소형견', '중형견'],
+  //   'address': '서울특별시 김김김구 나나나동 999-123, 111호',
+  //   'images': [
+  //     'https://ldb-phinf.pstatic.net/20210427_49/1619501570900CAtdy_JPEG/SoZtwIlyvA-zmwrVXqs6wSXK.jpeg.jpg',
+  //     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
+  //     'https://ldb-phinf.pstatic.net/20210427_49/1619501570900CAtdy_JPEG/SoZtwIlyvA-zmwrVXqs6wSXK.jpeg.jpg',
+  //     'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
+  //     'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
+  //     'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
+  //     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80',
+  //     'https://ldb-phinf.pstatic.net/20210427_49/1619501570900CAtdy_JPEG/SoZtwIlyvA-zmwrVXqs6wSXK.jpeg.jpg',
+  //   ],
+  //   'distance': '2.5km',
+  // };
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class _ContentDetailState extends State<ContentDetail> {
           icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
         ),
         title: Text(
-          item['title'],
+          widget.placeInfo['name'],
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -62,7 +64,7 @@ class _ContentDetailState extends State<ContentDetail> {
         child: Column(
           children: [
             CarouselSlider.builder(
-              itemCount: item['images'].length,
+              itemCount: widget.placeInfo['images'].length,
               itemBuilder:
                   (BuildContext context, int itemIndex, int pageViewIndex) {
                 return GestureDetector(
@@ -71,7 +73,7 @@ class _ContentDetailState extends State<ContentDetail> {
                       context,
                       MaterialPageRoute(builder: (context) {
                         return Gallery(
-                          images: item['images'],
+                          images: widget.placeInfo['images']?.cast<String>(),
                           initialPage: pageViewIndex,
                         );
                       }),
@@ -79,10 +81,9 @@ class _ContentDetailState extends State<ContentDetail> {
                   },
                   child: Hero(
                     tag: '$itemIndex',
-                    child: Image.network(
-                      item['images'][itemIndex],
-                      fit: BoxFit.cover,
-                    ),
+                    child: widget.placeInfo['images'][0] != ''
+                        ? Image.network(widget.placeInfo['images'][0])
+                        : Image.asset('assets/eraser.png'),
                   ),
                 );
               },
@@ -99,9 +100,12 @@ class _ContentDetailState extends State<ContentDetail> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    launchUrl(Uri.parse('tel://${item['phone']}'));
-                  },
+                  onPressed: widget.placeInfo['phone'] != null
+                      ? () {
+                          launchUrl(
+                              Uri.parse('tel://${widget.placeInfo['phone']}'));
+                        }
+                      : null,
                   child: Row(children: [
                     Icon(Icons.phone, color: Colors.black),
                     Padding(
@@ -120,8 +124,9 @@ class _ContentDetailState extends State<ContentDetail> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    if (!await launchUrl(Uri.parse(item['url']))) {
-                      throw 'Could not launch $item.url';
+                    if (!await launchUrl(
+                        Uri.parse(widget.placeInfo['mapUrl']))) {
+                      throw 'Could not launch ${widget.placeInfo['mapUrl']}';
                     }
                   },
                   child: Row(children: [
@@ -143,7 +148,7 @@ class _ContentDetailState extends State<ContentDetail> {
                 ElevatedButton(
                   onPressed: () async {
                     await Clipboard.setData(
-                            ClipboardData(text: item['address']))
+                            ClipboardData(text: widget.placeInfo['address']))
                         .then((_) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

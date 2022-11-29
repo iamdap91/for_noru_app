@@ -37,11 +37,11 @@ class _ContentListState extends State<ContentList> {
         controller: _refreshController,
         enablePullDown: true,
         onRefresh: _onRefresh,
-        child: context.watch<ListViewStore>().listItems.length == 0
+        child: context.watch<ListViewStore>().places.length == 0
             ? Container(
                 child: Center(
                   child: Text(
-                    '반경 30km 안에 반려동물 동반이 가능한 장소가 없어요 🥲',
+                    '반경 30km 안에 반려동물 동반 가능한 장소가 없어요 🥲',
                     style: TextStyle(color: Colors.grey),
                   ),
                 ),
@@ -49,10 +49,10 @@ class _ContentListState extends State<ContentList> {
             : ListView.separated(
                 padding: EdgeInsets.all(12.0),
                 itemBuilder: (BuildContext context, int index) {
-                  if (context.watch<ListViewStore>().listItems.length == 0) {
+                  if (context.watch<ListViewStore>().places.length == 0) {
                     return SizedBox();
                   }
-                  var item = context.watch<ListViewStore>().listItems[index];
+                  var placeInfo = context.watch<ListViewStore>().places[index];
 
                   return Card(
                     child: InkWell(
@@ -60,16 +60,17 @@ class _ContentListState extends State<ContentList> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => ContentDetail(),
+                            builder: (BuildContext context) =>
+                                ContentDetail(placeInfo: placeInfo),
                           ),
                         );
                       },
                       child: ListItem(
-                        name: item['name'],
-                        categories: item['categories']?.cast<String>(),
-                        tags: item['tags']?.cast<String>(),
-                        thumbnail: item['images'][0],
-                        distance: item['distance'],
+                        name: placeInfo['name'],
+                        categories: placeInfo['categories']?.cast<String>(),
+                        tags: placeInfo['tags']?.cast<String>(),
+                        thumbnail: placeInfo['images'][0],
+                        distance: placeInfo['distance'],
                       ),
                     ),
                   );
@@ -77,7 +78,7 @@ class _ContentListState extends State<ContentList> {
                 separatorBuilder: (BuildContext context, int index) {
                   return Divider(height: 30.0, color: Colors.grey);
                 },
-                itemCount: context.watch<ListViewStore>().listItems.length,
+                itemCount: context.watch<ListViewStore>().places.length,
               ),
       ),
     );

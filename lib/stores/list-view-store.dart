@@ -8,7 +8,7 @@ class ListViewStore extends ChangeNotifier {
   final List<String> categories = ['카페', '음식점', '미용실'];
   final List<bool> categorySelections = [true, false, false];
 
-  List<dynamic> listItems = [];
+  List<dynamic> places = [];
 
   void selectCategory(int index) {
     for (int i = 0; i < categories.length; i++) {
@@ -18,7 +18,7 @@ class ListViewStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> searchRequest() async {
+  void searchRequest() async {
     Position position = await getPosition();
     String url = 'http://192.168.0.101:3333/api/search';
     String query =
@@ -27,7 +27,7 @@ class ListViewStore extends ChangeNotifier {
     Response response = await get(Uri.parse('$url?$query'));
     var result = jsonDecode(response.body);
 
-    listItems = result['hits'];
+    places = result['hits'];
     notifyListeners();
   }
 }
