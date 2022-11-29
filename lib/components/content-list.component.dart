@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../stores/list-view-store.dart';
-import '../utils/get-position.dart';
 import 'content-detail.component.dart';
 import 'list-item.component.dart';
 
@@ -22,33 +20,14 @@ class _ContentListState extends State<ContentList> {
   @override
   void initState() {
     super.initState();
-    _makeSearchRequest();
-  }
-
-  Future<void> _makeSearchRequest() async {
-    Position position = await getPosition();
-    // print(position);
-    context
-        .read<ListViewStore>()
-        .searchRequest(position.latitude, position.longitude);
+    context.read<ListViewStore>().searchRequest();
   }
 
   void _onRefresh() async {
-    // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 200));
     setState(() {
-      // items.add(items[0]);
+      context.read<ListViewStore>().searchRequest();
     });
-    // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
-  }
-
-  void _onLoading() async {
-    // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 200));
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-    if (mounted) setState(() {});
-    _refreshController.loadComplete();
   }
 
   @override
@@ -58,7 +37,6 @@ class _ContentListState extends State<ContentList> {
         controller: _refreshController,
         enablePullDown: true,
         onRefresh: _onRefresh,
-        onLoading: _onLoading,
         child: ListView.separated(
           padding: EdgeInsets.all(12.0),
           itemBuilder: (BuildContext context, int index) {

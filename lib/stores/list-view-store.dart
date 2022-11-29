@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:for_noru_app/utils/get-position.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 
 class ListViewStore extends ChangeNotifier {
@@ -16,9 +18,10 @@ class ListViewStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> searchRequest(double lat, double lon) async {
-    Response response = await get(
-        Uri.parse('http://192.168.0.101:3333/api/search?lat=$lat&lon=$lon'));
+  Future<void> searchRequest() async {
+    Position position = await getPosition();
+    Response response = await get(Uri.parse(
+        'http://192.168.0.101:3333/api/search?lat=${position.latitude}&lon=${position.longitude}'));
     var result = jsonDecode(response.body);
 
     listItems = result['hits'];
