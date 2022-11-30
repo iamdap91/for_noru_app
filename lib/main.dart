@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:for_noru_app/components/content-list.component.dart';
 import 'package:for_noru_app/components/filter-bar.component.dart';
 import 'package:for_noru_app/components/guide.component.dart';
+import 'package:for_noru_app/stores/content.store.dart';
 import 'package:for_noru_app/stores/list-view-store.dart';
 import 'package:for_noru_app/utils/get-position.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +17,11 @@ Future<dynamic> Function(BuildContext) openTutorial = (BuildContext context) {
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (c) => ListViewStore(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (c) => ListViewStore()),
+        ChangeNotifierProvider(create: (c) => ContentStore()),
+      ],
       child: MaterialApp(home: NoruApp()),
     ),
   );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:for_noru_app/stores/content.store.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:provider/provider.dart';
 
 class PercentageIndicator extends StatelessWidget {
   String text;
@@ -25,12 +27,16 @@ class PercentageIndicator extends StatelessWidget {
         trailing: Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<ContentStore>().vote();
+              },
               icon: Icon(Icons.circle_outlined),
               color: Colors.green,
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<ContentStore>().vote();
+              },
               icon: Icon(Icons.close),
               color: Colors.red,
             ),

@@ -156,7 +156,8 @@ class _ContentDetailState extends State<ContentDetail> {
             PercentageIndicator(text: '소형견 입장이 가능해요', percentage: 0.87),
             PercentageIndicator(text: '중형견 입장이 가능해요', percentage: 0.53),
             PercentageIndicator(text: '대형견 입장이 가능해요', percentage: 0.09),
-            PercentageIndicator(text: '소, 중/대의 칸이 나뉘어 있어요', percentage: 0.3),
+            PercentageIndicator(
+                text: '반려견의 크기/무게별 칸이 나뉘어 있어요', percentage: 0.3),
           ],
         ),
       ),
