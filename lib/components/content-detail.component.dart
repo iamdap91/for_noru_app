@@ -41,6 +41,7 @@ class _ContentDetailState extends State<ContentDetail> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
+            // todo 이미지가 빈 배열일 경우 처리 필요
             CarouselSlider.builder(
               itemCount: widget.placeInfo['images'].length,
               itemBuilder:
