@@ -49,10 +49,11 @@ class _ContentListState extends State<ContentList> {
             : ListView.separated(
                 padding: EdgeInsets.all(12.0),
                 itemBuilder: (BuildContext context, int index) {
-                  if (context.watch<ListViewStore>().places.length == 0) {
+                  var places = context.watch<ListViewStore>().places;
+                  if (places.length == 0 || index >= places.length) {
                     return SizedBox();
                   }
-                  var placeInfo = context.watch<ListViewStore>().places[index];
+                  var placeInfo = places[index];
 
                   return Card(
                     child: InkWell(
