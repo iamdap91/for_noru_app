@@ -59,8 +59,8 @@ class _ContentDetailState extends State<ContentDetail> {
                   },
                   child: Hero(
                     tag: '$itemIndex',
-                    child: widget.placeInfo['images'][0] != ''
-                        ? Image.network(widget.placeInfo['images'][0])
+                    child: widget.placeInfo['images'].length > 0
+                        ? Image.network(widget.placeInfo['images'][itemIndex])
                         : Image.asset('assets/eraser.png'),
                   ),
                 );

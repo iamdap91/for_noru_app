@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class ListItem extends StatelessWidget {
   const ListItem({
     Key? key,
-    required String this.thumbnail,
+    required List<String> this.images,
     required String this.name,
     List<String>? this.tags,
     required List<String> this.categories,
     required String this.distance,
   }) : super(key: key);
 
-  final thumbnail;
+  final images;
   final name;
   final tags;
   final categories;
@@ -29,8 +29,8 @@ class ListItem extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: Container(
                 height: 100,
-                child: thumbnail.length > 0
-                    ? Image.network(thumbnail)
+                child: images.length > 0
+                    ? Image.network(images[0])
                     : Image.asset('assets/eraser.png'),
               ),
             ),

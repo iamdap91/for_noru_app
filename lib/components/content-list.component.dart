@@ -70,7 +70,7 @@ class _ContentListState extends State<ContentList> {
                         name: placeInfo['name'],
                         categories: placeInfo['categories']?.cast<String>(),
                         tags: placeInfo['tags']?.cast<String>(),
-                        thumbnail: placeInfo['images'][0],
+                        images: placeInfo['images'].cast<String>(),
                         distance: placeInfo['distance'],
                       ),
                     ),
