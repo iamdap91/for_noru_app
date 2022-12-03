@@ -7,6 +7,17 @@ import '../constants/vote-type.dart';
 import '../utils/get-device-id.dart';
 
 class ContentStore extends ChangeNotifier {
+  dynamic placeInfo = {};
+
+  Future<void> findContent({required String id}) async {
+    Response response = await get(
+      Uri.parse('http://192.168.0.101:3333/api/search/$id'),
+    );
+    var result = jsonDecode(response.body);
+
+    placeInfo = result['_source'];
+  }
+
   Future<String> vote({
     required int code,
     required VOTE_TYPE voteType,
