@@ -183,25 +183,29 @@ class _ContentDetailState extends State<ContentDetail> {
             PercentageIndicator(
               id: context.watch<ContentStore>().placeInfo['id'],
               text: '소형견 입장이 가능해요',
-              percentage: context.watch<ContentStore>().percentages[0],
+              percentage:
+                  context.watch<ContentStore>().percentages[0].toDouble(),
               voteType: VOTE_TYPE.SMALL,
             ),
             PercentageIndicator(
               id: context.watch<ContentStore>().placeInfo['id'],
               text: '중형견 입장이 가능해요',
-              percentage: context.watch<ContentStore>().percentages[1],
+              percentage:
+                  context.watch<ContentStore>().percentages[1].toDouble(),
               voteType: VOTE_TYPE.MIDDLE,
             ),
             PercentageIndicator(
               id: context.watch<ContentStore>().placeInfo['id'],
               text: '대형견 입장이 가능해요',
-              percentage: context.watch<ContentStore>().percentages[2],
+              percentage:
+                  context.watch<ContentStore>().percentages[2].toDouble(),
               voteType: VOTE_TYPE.BIG,
             ),
             PercentageIndicator(
               id: context.watch<ContentStore>().placeInfo['id'],
               text: '반려견의 크기/무게별 칸이 나뉘어 있어요',
-              percentage: context.watch<ContentStore>().percentages[3],
+              percentage:
+                  context.watch<ContentStore>().percentages[3].toDouble(),
               voteType: VOTE_TYPE.SEPARATED,
             ),
           ],

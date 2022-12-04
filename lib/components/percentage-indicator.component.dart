@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class PercentageIndicator extends StatefulWidget {
   final String text;
-  final int percentage;
+  final double percentage;
   final String id;
   final VOTE_TYPE voteType;
 
@@ -15,7 +15,7 @@ class PercentageIndicator extends StatefulWidget {
     required String this.text,
     required VOTE_TYPE this.voteType,
     required String this.id,
-    required int this.percentage,
+    required double this.percentage,
   }) : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class _PercentageIndicatorState extends State<PercentageIndicator> {
         lineHeight: 40.0,
         animationDuration: 500,
         backgroundColor: Colors.white,
-        percent: widget.percentage.toDouble(),
+        percent: widget.percentage,
         center: Text(widget.text),
         trailing: Row(
           children: [
