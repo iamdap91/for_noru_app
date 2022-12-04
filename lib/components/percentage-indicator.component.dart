@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 class PercentageIndicator extends StatelessWidget {
   final String text;
   final double percentage;
-  final int code;
+  final String id;
   final VOTE_TYPE voteType;
 
   PercentageIndicator({
@@ -15,7 +15,7 @@ class PercentageIndicator extends StatelessWidget {
     required String this.text,
     required VOTE_TYPE this.voteType,
     required double this.percentage,
-    required int this.code,
+    required String this.id,
   }) : super(key: key);
 
   @override
@@ -36,7 +36,7 @@ class PercentageIndicator extends StatelessWidget {
                 context
                     .read<ContentStore>()
                     .vote(
-                      code: this.code,
+                      id: this.id,
                       voteType: this.voteType,
                       castType: VOTE_CAST_TYPE.INCREMENT,
                     )
@@ -57,7 +57,7 @@ class PercentageIndicator extends StatelessWidget {
                 context
                     .read<ContentStore>()
                     .vote(
-                      code: this.code,
+                      id: this.id,
                       voteType: this.voteType,
                       castType: VOTE_CAST_TYPE.DECREMENT,
                     )

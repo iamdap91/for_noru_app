@@ -9,7 +9,15 @@ import '../utils/get-device-id.dart';
 class ContentStore extends ChangeNotifier {
   dynamic placeInfo = null;
 
-  Future<void> findContent({required String id}) async {
+  Future<void> findVotes({required String id}) async {
+    Response response = await get(
+      Uri.parse('http://192.168.0.101:3333/api/votes/$id'),
+    );
+
+    print(response.body);
+  }
+
+  Future<void> findOne({required String id}) async {
     placeInfo = null;
 
     Response response = await get(
@@ -20,7 +28,7 @@ class ContentStore extends ChangeNotifier {
   }
 
   Future<String> vote({
-    required int code,
+    required String id,
     required VOTE_TYPE voteType,
     required VOTE_CAST_TYPE castType,
   }) async {
@@ -31,15 +39,17 @@ class ContentStore extends ChangeNotifier {
     }
 
     Response response = await post(
-      Uri.parse('http://192.168.0.101:3333/api/places/vote'),
+      Uri.parse('http://192.168.0.101:3333/api/votes'),
       headers: {'Content-Type': ' application/json'},
       body: json.encode({
-        'code': code,
+        'id': id,
         'voteType': voteType.name,
         'castType': castType.name,
         'deviceId': deviceId,
       }),
     );
+
+    print(response.statusCode);
 
     switch (response.statusCode) {
       case 201:

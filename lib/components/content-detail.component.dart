@@ -10,8 +10,6 @@ import '../constants/vote-type.dart';
 import '../stores/content.store.dart';
 import 'gallery.component.dart';
 
-const backgroundButtonColor = Color.fromRGBO(0, 0, 0, 0.6);
-
 class ContentDetail extends StatefulWidget {
   final Map<String, dynamic> placeInfo;
 
@@ -25,9 +23,8 @@ class _ContentDetailState extends State<ContentDetail> {
   @override
   void initState() {
     super.initState();
-    context
-        .read<ContentStore>()
-        .findContent(id: widget.placeInfo['documentId']);
+    context.read<ContentStore>().findOne(id: widget.placeInfo['id']);
+    context.read<ContentStore>().findVotes(id: widget.placeInfo['id']);
   }
 
   @override
@@ -185,25 +182,25 @@ class _ContentDetailState extends State<ContentDetail> {
             PercentageIndicator(
               text: '소형견 입장이 가능해요',
               percentage: 0.87,
-              code: context.watch<ContentStore>().placeInfo['code'],
+              id: context.watch<ContentStore>().placeInfo['id'],
               voteType: VOTE_TYPE.SMALL,
             ),
             PercentageIndicator(
               text: '중형견 입장이 가능해요',
               percentage: 0.53,
-              code: context.watch<ContentStore>().placeInfo['code'],
+              id: context.watch<ContentStore>().placeInfo['id'],
               voteType: VOTE_TYPE.MIDDLE,
             ),
             PercentageIndicator(
               text: '대형견 입장이 가능해요',
               percentage: 0.09,
-              code: context.watch<ContentStore>().placeInfo['code'],
+              id: context.watch<ContentStore>().placeInfo['id'],
               voteType: VOTE_TYPE.BIG,
             ),
             PercentageIndicator(
               text: '반려견의 크기/무게별 칸이 나뉘어 있어요',
               percentage: 0.3,
-              code: context.watch<ContentStore>().placeInfo['code'],
+              id: context.watch<ContentStore>().placeInfo['id'],
               voteType: VOTE_TYPE.SEPARATED,
             ),
           ],
