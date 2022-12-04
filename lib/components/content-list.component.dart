@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:for_noru_app/components/shimmers/content-list-shimmer.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -32,6 +33,10 @@ class _ContentListState extends State<ContentList> {
 
   @override
   Widget build(BuildContext context) {
+    if (context.watch<ListViewStore>().places.length == 0) {
+      return ContentListShimmer();
+    }
+
     return Expanded(
       child: SmartRefresher(
         controller: _refreshController,

@@ -19,6 +19,7 @@ class ListViewStore extends ChangeNotifier {
   }
 
   void searchRequest() async {
+    await Future.delayed(Duration(seconds: 3));
     Position position = await getPosition();
     String url = 'http://192.168.0.101:3333/api/search';
     String query =
