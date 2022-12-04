@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:for_noru_app/components/percentage-indicator.component.dart';
+import 'package:for_noru_app/components/shimmers/content-detail-shimmer.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,7 +33,7 @@ class _ContentDetailState extends State<ContentDetail> {
   @override
   Widget build(BuildContext context) {
     if (context.watch<ContentStore>().placeInfo == null) {
-      return Container();
+      return ContentDetailShimmer();
     }
 
     return Scaffold(
