@@ -11,7 +11,6 @@ class ContentStore extends ChangeNotifier {
 
   Future<void> findContent({required String id}) async {
     placeInfo = null;
-    // await Future.delayed(Duration(seconds: 3));
 
     Response response = await get(
       Uri.parse('http://192.168.0.101:3333/api/search/$id'),

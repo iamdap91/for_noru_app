@@ -33,7 +33,7 @@ class _ContentListState extends State<ContentList> {
 
   @override
   Widget build(BuildContext context) {
-    if (context.watch<ListViewStore>().places.length == 0) {
+    if (context.watch<ListViewStore>().loading) {
       return ContentListShimmer();
     }
 

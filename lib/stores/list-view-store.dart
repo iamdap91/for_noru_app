@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 
 class ListViewStore extends ChangeNotifier {
+  bool loading = false;
   final List<String> categories = ['카페', '음식점', '미용실'];
   final List<bool> categorySelections = [true, false, false];
 
@@ -19,7 +20,8 @@ class ListViewStore extends ChangeNotifier {
   }
 
   void searchRequest() async {
-    await Future.delayed(Duration(seconds: 3));
+    loading = true;
+    places = [];
     Position position = await getPosition();
     String url = 'http://192.168.0.101:3333/api/search';
     String query =
@@ -30,5 +32,6 @@ class ListViewStore extends ChangeNotifier {
 
     places = result['hits'];
     notifyListeners();
+    loading = false;
   }
 }
