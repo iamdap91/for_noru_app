@@ -67,7 +67,7 @@ class _ContentListState extends State<ContentList> {
                           context,
                           MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                ContentDetail(placeInfo: placeInfo),
+                                ContentDetail(id: placeInfo['id']),
                           ),
                         );
                       },

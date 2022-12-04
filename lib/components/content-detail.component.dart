@@ -11,9 +11,9 @@ import '../stores/content.store.dart';
 import 'gallery.component.dart';
 
 class ContentDetail extends StatefulWidget {
-  final Map<String, dynamic> placeInfo;
+  final String id;
 
-  ContentDetail({Key? key, required this.placeInfo}) : super(key: key);
+  ContentDetail({Key? key, required String this.id}) : super(key: key);
 
   @override
   State<ContentDetail> createState() => _ContentDetailState();
@@ -23,13 +23,14 @@ class _ContentDetailState extends State<ContentDetail> {
   @override
   void initState() {
     super.initState();
-    context.read<ContentStore>().findOne(id: widget.placeInfo['id']);
-    context.read<ContentStore>().findVotes(id: widget.placeInfo['id']);
+    context.read<ContentStore>().findOne(id: widget.id);
+    context.read<ContentStore>().findVotes(id: widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (context.watch<ContentStore>().placeInfo == null) {
+    if (context.watch<ContentStore>().placeInfo == null ||
+        context.watch<ContentStore>().percentages == null) {
       return ContentDetailShimmer();
     }
 
@@ -180,27 +181,27 @@ class _ContentDetailState extends State<ContentDetail> {
             ),
             Divider(height: 20),
             PercentageIndicator(
-              text: '소형견 입장이 가능해요',
-              percentage: 0.87,
               id: context.watch<ContentStore>().placeInfo['id'],
+              text: '소형견 입장이 가능해요',
+              percentage: context.watch<ContentStore>().percentages[0],
               voteType: VOTE_TYPE.SMALL,
             ),
             PercentageIndicator(
-              text: '중형견 입장이 가능해요',
-              percentage: 0.53,
               id: context.watch<ContentStore>().placeInfo['id'],
+              text: '중형견 입장이 가능해요',
+              percentage: context.watch<ContentStore>().percentages[1],
               voteType: VOTE_TYPE.MIDDLE,
             ),
             PercentageIndicator(
-              text: '대형견 입장이 가능해요',
-              percentage: 0.09,
               id: context.watch<ContentStore>().placeInfo['id'],
+              text: '대형견 입장이 가능해요',
+              percentage: context.watch<ContentStore>().percentages[2],
               voteType: VOTE_TYPE.BIG,
             ),
             PercentageIndicator(
-              text: '반려견의 크기/무게별 칸이 나뉘어 있어요',
-              percentage: 0.3,
               id: context.watch<ContentStore>().placeInfo['id'],
+              text: '반려견의 크기/무게별 칸이 나뉘어 있어요',
+              percentage: context.watch<ContentStore>().percentages[3],
               voteType: VOTE_TYPE.SEPARATED,
             ),
           ],

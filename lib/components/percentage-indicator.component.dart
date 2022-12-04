@@ -4,9 +4,9 @@ import 'package:for_noru_app/stores/content.store.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
-class PercentageIndicator extends StatelessWidget {
+class PercentageIndicator extends StatefulWidget {
   final String text;
-  final double percentage;
+  final int percentage;
   final String id;
   final VOTE_TYPE voteType;
 
@@ -14,10 +14,15 @@ class PercentageIndicator extends StatelessWidget {
     Key? key,
     required String this.text,
     required VOTE_TYPE this.voteType,
-    required double this.percentage,
     required String this.id,
+    required int this.percentage,
   }) : super(key: key);
 
+  @override
+  State<PercentageIndicator> createState() => _PercentageIndicatorState();
+}
+
+class _PercentageIndicatorState extends State<PercentageIndicator> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,8 +32,8 @@ class PercentageIndicator extends StatelessWidget {
         lineHeight: 40.0,
         animationDuration: 500,
         backgroundColor: Colors.white,
-        percent: percentage,
-        center: Text(text),
+        percent: widget.percentage.toDouble(),
+        center: Text(widget.text),
         trailing: Row(
           children: [
             IconButton(
@@ -36,8 +41,8 @@ class PercentageIndicator extends StatelessWidget {
                 context
                     .read<ContentStore>()
                     .vote(
-                      id: this.id,
-                      voteType: this.voteType,
+                      id: widget.id,
+                      voteType: this.widget.voteType,
                       castType: VOTE_CAST_TYPE.INCREMENT,
                     )
                     .then((String message) => {
@@ -47,6 +52,7 @@ class PercentageIndicator extends StatelessWidget {
                               duration: Duration(milliseconds: 500),
                             ),
                           ),
+                          context.read<ContentStore>().findVotes(id: widget.id),
                         });
               },
               icon: Icon(Icons.circle_outlined),
@@ -57,8 +63,8 @@ class PercentageIndicator extends StatelessWidget {
                 context
                     .read<ContentStore>()
                     .vote(
-                      id: this.id,
-                      voteType: this.voteType,
+                      id: widget.id,
+                      voteType: this.widget.voteType,
                       castType: VOTE_CAST_TYPE.DECREMENT,
                     )
                     .then((String message) => {
@@ -68,6 +74,7 @@ class PercentageIndicator extends StatelessWidget {
                               duration: Duration(milliseconds: 500),
                             ),
                           ),
+                          context.read<ContentStore>().findVotes(id: widget.id),
                         });
               },
               icon: Icon(Icons.close),
@@ -76,7 +83,7 @@ class PercentageIndicator extends StatelessWidget {
           ],
         ),
         barRadius: Radius.circular(100),
-        progressColor: percentage > 0.5 ? Colors.orange : Colors.grey,
+        progressColor: widget.percentage > 0.5 ? Colors.orange : Colors.grey,
       ),
     );
   }

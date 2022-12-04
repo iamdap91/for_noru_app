@@ -8,13 +8,15 @@ import '../utils/get-device-id.dart';
 
 class ContentStore extends ChangeNotifier {
   dynamic placeInfo = null;
+  dynamic percentages = null;
 
   Future<void> findVotes({required String id}) async {
     Response response = await get(
       Uri.parse('http://192.168.0.101:3333/api/votes/$id'),
     );
 
-    print(response.body);
+    percentages = jsonDecode(response.body);
+    notifyListeners();
   }
 
   Future<void> findOne({required String id}) async {
@@ -48,8 +50,6 @@ class ContentStore extends ChangeNotifier {
         'deviceId': deviceId,
       }),
     );
-
-    print(response.statusCode);
 
     switch (response.statusCode) {
       case 201:
