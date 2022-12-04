@@ -55,49 +55,55 @@ class _ContentDetailState extends State<ContentDetail> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            // todo 이미지가 빈 배열일 경우 처리 필요
-            CarouselSlider.builder(
-              itemCount:
-                  context.watch<ContentStore>().placeInfo['images'].length,
-              itemBuilder:
-                  (BuildContext context, int itemIndex, int pageViewIndex) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) {
-                        return Gallery(
-                          images: context
-                              .watch<ContentStore>()
-                              .placeInfo['images']
-                              ?.cast<String>(),
-                          initialPage: pageViewIndex,
-                        );
-                      }),
-                    );
-                  },
-                  child: Hero(
-                    tag: '$itemIndex',
-                    child: context
-                                .watch<ContentStore>()
-                                .placeInfo['images']
-                                .length >
-                            0
-                        ? Image.network(context
-                            .watch<ContentStore>()
-                            .placeInfo['images'][itemIndex])
-                        : Image.asset('assets/eraser.png'),
+            context.watch<ContentStore>().placeInfo['images'].length == 0
+                ? Image.asset(
+                    'assets/eraser.png',
+                    height: 400,
+                  )
+                : CarouselSlider.builder(
+                    itemCount: context
+                        .watch<ContentStore>()
+                        .placeInfo['images']
+                        .length,
+                    itemBuilder: (BuildContext context, int itemIndex,
+                        int pageViewIndex) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) {
+                              return Gallery(
+                                images: context
+                                    .watch<ContentStore>()
+                                    .placeInfo['images']
+                                    ?.cast<String>(),
+                                initialPage: pageViewIndex,
+                              );
+                            }),
+                          );
+                        },
+                        child: Hero(
+                          tag: '$itemIndex',
+                          child: context
+                                      .watch<ContentStore>()
+                                      .placeInfo['images']
+                                      .length >
+                                  0
+                              ? Image.network(context
+                                  .watch<ContentStore>()
+                                  .placeInfo['images'][itemIndex])
+                              : Image.asset('assets/eraser.png'),
+                        ),
+                      );
+                    },
+                    options: CarouselOptions(
+                      enableInfiniteScroll: false,
+                      height: 400,
+                      enlargeCenterPage: true,
+                      aspectRatio: 16 / 9,
+                    ),
+                    carouselController: CarouselController(),
                   ),
-                );
-              },
-              options: CarouselOptions(
-                enableInfiniteScroll: false,
-                height: 400,
-                enlargeCenterPage: true,
-                aspectRatio: 16 / 9,
-              ),
-              carouselController: CarouselController(),
-            ),
             Divider(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
