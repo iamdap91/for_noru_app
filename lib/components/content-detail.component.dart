@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:for_noru_app/components/percentage-indicator.component.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants/vote-type.dart';
+import '../stores/content.store.dart';
 import 'gallery.component.dart';
 
 const backgroundButtonColor = Color.fromRGBO(0, 0, 0, 0.6);
@@ -20,7 +22,19 @@ class ContentDetail extends StatefulWidget {
 
 class _ContentDetailState extends State<ContentDetail> {
   @override
+  void initState() {
+    super.initState();
+    context
+        .read<ContentStore>()
+        .findContent(id: widget.placeInfo['documentId']);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (context.watch<ContentStore>().placeInfo == null) {
+      return Container();
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -31,7 +45,7 @@ class _ContentDetailState extends State<ContentDetail> {
           icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
         ),
         title: Text(
-          widget.placeInfo['name'],
+          context.watch<ContentStore>().placeInfo['name'],
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -44,7 +58,8 @@ class _ContentDetailState extends State<ContentDetail> {
           children: [
             // todo 이미지가 빈 배열일 경우 처리 필요
             CarouselSlider.builder(
-              itemCount: widget.placeInfo['images'].length,
+              itemCount:
+                  context.watch<ContentStore>().placeInfo['images'].length,
               itemBuilder:
                   (BuildContext context, int itemIndex, int pageViewIndex) {
                 return GestureDetector(
@@ -53,7 +68,10 @@ class _ContentDetailState extends State<ContentDetail> {
                       context,
                       MaterialPageRoute(builder: (context) {
                         return Gallery(
-                          images: widget.placeInfo['images']?.cast<String>(),
+                          images: context
+                              .watch<ContentStore>()
+                              .placeInfo['images']
+                              ?.cast<String>(),
                           initialPage: pageViewIndex,
                         );
                       }),
@@ -61,8 +79,14 @@ class _ContentDetailState extends State<ContentDetail> {
                   },
                   child: Hero(
                     tag: '$itemIndex',
-                    child: widget.placeInfo['images'].length > 0
-                        ? Image.network(widget.placeInfo['images'][itemIndex])
+                    child: context
+                                .watch<ContentStore>()
+                                .placeInfo['images']
+                                .length >
+                            0
+                        ? Image.network(context
+                            .watch<ContentStore>()
+                            .placeInfo['images'][itemIndex])
                         : Image.asset('assets/eraser.png'),
                   ),
                 );
@@ -80,12 +104,13 @@ class _ContentDetailState extends State<ContentDetail> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: widget.placeInfo['phone'] != null
-                      ? () {
-                          launchUrl(
-                              Uri.parse('tel://${widget.placeInfo['phone']}'));
-                        }
-                      : null,
+                  onPressed:
+                      context.watch<ContentStore>().placeInfo['phone'] != null
+                          ? () {
+                              launchUrl(Uri.parse(
+                                  'tel://${context.watch<ContentStore>().placeInfo['phone']}'));
+                            }
+                          : null,
                   child: Row(children: [
                     Icon(Icons.phone, color: Colors.black),
                     Padding(
@@ -104,9 +129,9 @@ class _ContentDetailState extends State<ContentDetail> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    if (!await launchUrl(
-                        Uri.parse(widget.placeInfo['mapUrl']))) {
-                      throw 'Could not launch ${widget.placeInfo['mapUrl']}';
+                    if (!await launchUrl(Uri.parse(
+                        context.watch<ContentStore>().placeInfo['mapUrl']))) {
+                      throw 'Could not launch ${context.watch<ContentStore>().placeInfo['mapUrl']}';
                     }
                   },
                   child: Row(children: [
@@ -127,8 +152,10 @@ class _ContentDetailState extends State<ContentDetail> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    await Clipboard.setData(
-                            ClipboardData(text: widget.placeInfo['address']))
+                    await Clipboard.setData(ClipboardData(
+                            text: context
+                                .watch<ContentStore>()
+                                .placeInfo['address']))
                         .then((_) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -157,25 +184,25 @@ class _ContentDetailState extends State<ContentDetail> {
             PercentageIndicator(
               text: '소형견 입장이 가능해요',
               percentage: 0.87,
-              code: widget.placeInfo['code'],
+              code: context.watch<ContentStore>().placeInfo['code'],
               voteType: VOTE_TYPE.SMALL,
             ),
             PercentageIndicator(
               text: '중형견 입장이 가능해요',
               percentage: 0.53,
-              code: widget.placeInfo['code'],
+              code: context.watch<ContentStore>().placeInfo['code'],
               voteType: VOTE_TYPE.MIDDLE,
             ),
             PercentageIndicator(
               text: '대형견 입장이 가능해요',
               percentage: 0.09,
-              code: widget.placeInfo['code'],
+              code: context.watch<ContentStore>().placeInfo['code'],
               voteType: VOTE_TYPE.BIG,
             ),
             PercentageIndicator(
               text: '반려견의 크기/무게별 칸이 나뉘어 있어요',
               percentage: 0.3,
-              code: widget.placeInfo['code'],
+              code: context.watch<ContentStore>().placeInfo['code'],
               voteType: VOTE_TYPE.SEPARATED,
             ),
           ],
