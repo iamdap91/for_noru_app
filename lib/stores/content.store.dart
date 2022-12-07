@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
+import '../constants/api-path.dart';
 import '../constants/vote-type.dart';
 import '../utils/get-device-id.dart';
 
@@ -12,7 +13,7 @@ class ContentStore extends ChangeNotifier {
 
   Future<void> findVotes({required String id}) async {
     Response response = await get(
-      Uri.parse('http://192.168.0.101:3333/api/votes/$id'),
+      Uri.parse('${API_PATH}/api/votes/$id'),
     );
 
     percentages = jsonDecode(response.body);
@@ -23,7 +24,7 @@ class ContentStore extends ChangeNotifier {
     placeInfo = null;
 
     Response response = await get(
-      Uri.parse('http://192.168.0.101:3333/api/search/$id'),
+      Uri.parse('${API_PATH}/api/search/$id'),
     );
     placeInfo = jsonDecode(response.body);
     notifyListeners();
@@ -41,7 +42,7 @@ class ContentStore extends ChangeNotifier {
     }
 
     Response response = await post(
-      Uri.parse('http://192.168.0.101:3333/api/votes'),
+      Uri.parse('${API_PATH}/api/votes'),
       headers: {'Content-Type': ' application/json'},
       body: json.encode({
         'id': id,

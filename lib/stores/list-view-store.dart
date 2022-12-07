@@ -4,6 +4,8 @@ import 'package:for_noru_app/utils/get-position.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 
+import '../constants/api-path.dart';
+
 class ListViewStore extends ChangeNotifier {
   bool loading = false;
   final List<String> categories = ['카페', '음식점', '미용실'];
@@ -23,7 +25,7 @@ class ListViewStore extends ChangeNotifier {
     loading = true;
     places = [];
     Position position = await getPosition();
-    String url = 'http://192.168.0.101:3333/api/search';
+    String url = '${API_PATH}/api/search';
     String query =
         'lat=${position.latitude}&lon=${position.longitude}&category=${categories[categorySelections.indexOf(true)]}';
 
