@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:for_noru_app/components/content-list.component.dart';
 import 'package:for_noru_app/components/filter-bar.component.dart';
 import 'package:for_noru_app/components/guide.component.dart';
@@ -52,6 +53,7 @@ class _NoruAppState extends State<NoruApp> {
 
   @override
   void initState() {
+    FlutterNativeSplash.remove();
     super.initState();
     figureTutorial();
   }
