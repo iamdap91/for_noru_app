@@ -29,6 +29,8 @@ class ListViewStore extends ChangeNotifier {
     String query =
         'lat=${position.latitude}&lon=${position.longitude}&category=${categories[categorySelections.indexOf(true)]}';
 
+    print('$url?$query');
+
     Response response = await get(Uri.parse('$url?$query'));
     var result = jsonDecode(response.body);
 

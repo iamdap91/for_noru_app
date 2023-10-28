@@ -1,1 +1,1 @@
-const API_PATH = 'http://192.168.0.101:3333';
+const API_PATH = 'http://localhost:3333';
